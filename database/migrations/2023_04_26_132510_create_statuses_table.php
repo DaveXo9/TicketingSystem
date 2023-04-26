@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ticket_id')->constrained()->cascadeOnDelete();
             $table->string('status');
             $table->timestamps();
         });
