@@ -40,3 +40,17 @@ Route::put('/users/{user}', [UserController::class, 'update']);
 
 //delete user
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('auth');
+
+//-------------------------------------------------------------------------------------------
+
+// Show client list
+Route::get('/clients', [ClientController::class, 'index'])->middleware('auth');
+
+// Show update client form
+Route::get('/clients/{client}/edit', [ClientController::class, 'edit'])->middleware('auth');
+
+// Update client
+Route::put('/clients/{client}', [ClientController::class, 'update'])->middleware('auth');
+
+// Delete client
+Route::delete('/clients/{client}', [ClientController::class, 'destroy'])->middleware('auth');
