@@ -58,21 +58,21 @@ Route::delete('/clients/{client}', [ClientController::class, 'destroy'])->middle
 //-------------------------------------------------------------------------------------------
 
 // Show status list
-Route::get('/statuses', [StatusController::class, 'index'])->middleware('auth');
+Route::get('/status', [StatusController::class, 'index'])->middleware('auth');
 
 // Show create status form
-Route::get('/statuses/create', [StatusController::class, 'create'])->middleware('auth');
+Route::get('/status/create', [StatusController::class, 'create'])->middleware('auth');
 
 // Store status
-Route::post('/statuses', [StatusController::class, 'store'])->middleware('auth');
+Route::post('/status', [StatusController::class, 'store'])->middleware('auth');
 
 // Show update status form
-Route::get('/statuses/{status}/edit', [StatusController::class, 'edit'])->middleware('auth');
+Route::get('/status/{status}/edit', [StatusController::class, 'edit'])->middleware('auth');
 
 // Update status
-Route::put('/statuses/{status}', [StatusController::class, 'update'])->middleware('auth');
+Route::put('/status/{status}', [StatusController::class, 'update'])->middleware('auth');
 
 // Delete status
-Route::delete('/statuses/{status}', [StatusController::class, 'destroy'])->middleware('auth');
+Route::delete('/status/{status}', [StatusController::class, 'destroy'])->middleware('auth');
 
 //-------------------------------------------------------------------------------------------
