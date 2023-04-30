@@ -88,3 +88,29 @@ Route::put('/comments/{comment}', [CommentController::class, 'update'])->middlew
 
 // Delete comment
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth');
+
+
+//-------------------------------------------------------------------------------------------
+
+// Show ticket list
+Route::get('/tickets', [TicketController::class, 'index'])->middleware('auth');
+
+// Show open ticket list
+Route::get('/tickets/open', [TicketController::class, 'openTickets'])->middleware('auth');
+
+// Show create ticket form
+Route::get('/tickets/create', [TicketController::class, 'create'])->middleware('auth');
+
+// Store ticket
+Route::post('/tickets', [TicketController::class, 'store'])->middleware('auth');
+
+// Show update ticket form
+Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->middleware('auth');
+
+// Update ticket
+Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->middleware('auth');
+
+// Delete ticket
+Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->middleware('auth');
+
+//-------------------------------------------------------------------------------------------
