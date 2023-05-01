@@ -76,3 +76,15 @@ Route::put('/status/{status}', [StatusController::class, 'update'])->middleware(
 Route::delete('/status/{status}', [StatusController::class, 'destroy'])->middleware('auth');
 
 //-------------------------------------------------------------------------------------------
+
+// Create comment
+Route::post('/comments', [CommentController::class, 'store'])->middleware('auth');
+
+// Show update comment form
+Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->middleware('auth');
+
+// Update comment
+Route::put('/comments/{comment}', [CommentController::class, 'update'])->middleware('auth');
+
+// Delete comment
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth');
