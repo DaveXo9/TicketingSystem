@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Ticket;
 use App\Models\Status;
+use App\Models\Ticket;
 
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\ClientController;
 
 class TicketController extends Controller
 {
@@ -30,7 +31,8 @@ class TicketController extends Controller
             'phone_number' => 'required|string',
         ]);
 
-        $client = ClientController::create($clientFields);
+        $clientController = new ClientController();
+        $client = $clientController->create($clientFields);
 
         $ticketFields = $request->validate([
             'title' => ['required','min:3',],
@@ -40,7 +42,7 @@ class TicketController extends Controller
 
         $status_id = Status::where('status', $request->status)->first()->id;
 
-        $ticketFields['user_id'] = auth()->id;
+        $ticketFields['user_id'] = auth()->id();
         $ticketFields['client_id'] = $client->id;
         $ticketFields['status_id'] = $status_id;
 
@@ -61,20 +63,29 @@ class TicketController extends Controller
             'priority' => 'required|string',
         ]);
 
+        $request->validate([
+            'email' => 'required|email',
+            'status' => 'required|string',
+        ]);
+
         $status_id = Status::where('status', $request->status)->first()->id;
 
         $user_id = User::where('email', $request->email)->first()->id;
 
-        if ($ticket->user_id != $user->id) {
+        if (!$user_id) {
+            return back()->withErrors(['email' => 'The provided email is not associated with any user']);
+        }
+
+        if ($ticket->user_id != $user_id) {
             $formFields['user_id'] = $user_id;
         }
-        if ($ticket->status_id != $request->input('status_id')) {
+        if ($ticket->status_id != $status_id) {
             $formFields['status_id'] = $status_id;
         }
 
         $ticket->update($formFields);
 
-        return redirect('/')->with('message', 'Ticket updated');
+        return back()->with('message', 'Ticket updated');
 
         
     }

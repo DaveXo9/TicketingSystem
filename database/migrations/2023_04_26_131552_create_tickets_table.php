@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('status_id');
             $table->string('title');
             $table->text('description');
-            $table->string('priority')->default('low'); 
+            $table->string('priority')->default('Low'); 
             $table->timestamps();
         });
     }

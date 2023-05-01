@@ -18,7 +18,7 @@ class CommentController extends Controller
             'comment' => 'required'
         ]);
 
-        $formFields['user_id'] = auth()->id;
+        $formFields['user_id'] = auth()->id();
         $formFields['ticket_id'] = $request->ticket_id;
 
         Comment::create($formFields);
@@ -35,7 +35,7 @@ class CommentController extends Controller
             'comment' => 'required'
         ]);
 
-        if($comment->user_id != auth()->id){
+        if($comment->user_id != auth()->id()){
             abort(403, 'Unauthorized Action');
         }else{
 
@@ -47,7 +47,7 @@ class CommentController extends Controller
     }
 
     public function destroy(Comment $comment){
-        if($comment->user_id != auth()->id){
+        if($comment->user_id != auth()->id()){
             abort(403, 'Unauthorized Action');
         }else{
             $comment->delete();

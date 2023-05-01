@@ -17,7 +17,8 @@ class StatusFactory extends Factory
     public function definition()
     {
         return [
-            //
+            // Won't be needed beacuse there are only 3 statuses that are manually created in the database
+            'status' => $this->faker->randomElement(['Open', 'In Progress', 'Closed'])
         ];
     }
 }
