@@ -13,6 +13,9 @@ class TicketController extends Controller
         $tickets = Ticket::latest()->paginate(10);
         return view('ticket.index', compact('tickets'));
     }
+    public function show(Ticket $ticket){
+        return view('ticket.show', compact('ticket'));
+    }
 
     public function openTickets(){
         $tickets = Ticket::where('status_id', 1)->latest()->paginate(10);
