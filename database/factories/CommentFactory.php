@@ -1,8 +1,9 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Ticket;
+use App\Models\User;
 
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +19,12 @@ class CommentFactory extends Factory
     public function definition()
     {
         $tickets = Ticket::pluck('id');
+        $users = User::pluck('id');
+
         return [
-            'comment' => $this->faker->paragraph(4),
             'ticket_id' => $this->faker->randomElement($tickets),
+            'user_id' => $this->faker->randomElement($users),
+            'comment' => $this->faker->paragraph(4),
         ];
     }
 }

@@ -18,7 +18,7 @@ class ClientController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
             'name' => ['required','min:3',],
-            'email'=> ['required', 'email', Rule::unique('users', 'email')],
+            'email'=> ['required', 'email', Rule::unique('clients', 'email')],
             'phone_number' => 'required|string|max:255',
         ]);
 
@@ -39,7 +39,7 @@ class ClientController extends Controller
     public function update(Request $request, Clinet $client){
         $formFields = $request->validate([
             'name' => ['required','min:3',],
-            'email'=> ['required', 'email', Rule::unique('users', 'email')->ignore($client->id)],
+            'email'=> ['required', 'email', Rule::unique('clients', 'email')->ignore($client->id)],
         ]);
 
         $user->update($formFields);

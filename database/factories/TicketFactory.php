@@ -1,9 +1,11 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\User;
+
+
+use App\Models\Client;
 use App\Models\Status;
-
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,12 +21,16 @@ class TicketFactory extends Factory
     public function definition()
     {
         $statuses = Status::pluck('id');
+        $users = User::pluck('id');
+        $clients = Client::pluck('id');
 
         return [
+            'user_id' => $this->faker->randomElement($users),
+            'client_id' => $this->faker->randomElement($clients),
+            'status_id' => $this->faker->randomElement($statuses),
             'title'=> $this->faker->sentence(),
             'description'=> $this->faker->paragraph(4),
             'priority'=> $this->faker->randomElement(['Low', 'Medium', 'High']),
-            'status_id' => $this->faker->randomElement($statuses),
 
         ];
     }
