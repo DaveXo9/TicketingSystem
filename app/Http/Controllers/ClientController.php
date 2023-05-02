@@ -42,7 +42,7 @@ class ClientController extends Controller
             'email'=> ['required', 'email', Rule::unique('clients', 'email')->ignore($client->id)],
         ]);
 
-        $user->update($formFields);
+        $client->update($formFields);
 
         return redirect('/')->with('message', 'Client updated');
     }

@@ -98,6 +98,9 @@ Route::get('/tickets', [TicketController::class, 'index'])->middleware('auth');
 // Show open ticket list
 Route::get('/tickets/open', [TicketController::class, 'openTickets'])->middleware('auth');
 
+// Show single ticket
+Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->middleware('auth');
+
 // Show create ticket form
 Route::get('/tickets/create', [TicketController::class, 'create'])->middleware('auth');
 
