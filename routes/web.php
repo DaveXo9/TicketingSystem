@@ -97,6 +97,8 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->mid
 
 //-------------------------------------------------------------------------------------------
 
+// Show create ticket form
+Route::get('/tickets/create', [TicketController::class, 'create'])->middleware('auth');
 // Show ticket list
 Route::get('/tickets', [TicketController::class, 'index'])->middleware('auth');
 
@@ -106,8 +108,6 @@ Route::get('/', [TicketController::class, 'openTickets'])->middleware('auth');
 // Show single ticket
 Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->middleware('auth');
 
-// Show create ticket form
-Route::get('/tickets/create', [TicketController::class, 'create'])->middleware('auth');
 
 // Store ticket
 Route::post('/tickets', [TicketController::class, 'store'])->middleware('auth');

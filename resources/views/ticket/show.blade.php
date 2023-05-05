@@ -1,6 +1,6 @@
 <x-layout> 
     <div class="my-4">
-      <div class="max-w-2xl px-6 py-8 mx-auto bg-gray-50 rounded-lg shadow-md dark:bg-gray-100" style="cursor: auto;">
+      <div class="max-w-3xl min-h-80 px-6 py-8 mx-auto bg-gray-50 rounded-lg shadow-md dark:bg-gray-100" style="cursor: auto;">
         <div class="flex items-center justify-between">
           <span class="text-sm font-light text-gray-600 dark:text-gray-400">{{$ticket->created_at}}</span> 
           <a class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500">{{$ticket->status->status}}</a>
@@ -29,8 +29,26 @@
           </div>
         </div>
       </div>
-      
+    </br>
+  </br>
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-xl font-bold mb-4">Comments</h2>
+
+
+    @unless(count($ticket->comments) == 0)
+
+    @foreach($ticket->comments as $comment)
+    <x-comment-card :comment="$comment" />
+    @endforeach
+    
+    @else
+    <p>No comment found</p>
+    @endunless
+
+    <x-comment-form :ticket="$ticket"/>
     </div>
+    
+  </div>
     
   </x-layout>
   
