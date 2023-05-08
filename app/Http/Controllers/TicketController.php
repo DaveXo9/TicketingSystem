@@ -6,6 +6,7 @@ use App\Models\Ticket;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\ClientController;
 
 class TicketController extends Controller

@@ -13,22 +13,16 @@ class ClientController extends Controller
         return view('client.index', compact('clients'));
     }
 
-    public function create(Request $request)
+    public function create(array $clientFields)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'name' => ['required','min:3',],
-            'email'=> ['required', 'email', Rule::unique('clients', 'email')],
-            'phone_number' => 'required|string|max:255',
-        ]);
 
-        $client = Client::where('email', $validatedData['email'])->first();
+        $client = Client::where('email', $clientFields['email'])->first();
 
         if($client){
             return $client;
         }
         else{
-            $client = Client::create($validatedData);
+            $client = Client::create($clientFields);
             return $client;
         }
     }
