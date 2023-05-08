@@ -10,12 +10,14 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable=[
-        'comment'
+        'comment',
+        'ticket_id',
+        'user_id'
     ];
 
 
     public function user() {
-        return $this->belongTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function ticket(){

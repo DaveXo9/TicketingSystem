@@ -15,11 +15,11 @@ class CommentController extends Controller
 
     public function store(Request $request){
         $formFields = $request->validate([
-            'comment' => 'required'
+            'comment' => 'required',
+            'ticket_id' => 'required'
         ]);
 
         $formFields['user_id'] = auth()->id();
-        $formFields['ticket_id'] = $request->ticket_id;
 
         Comment::create($formFields);
 

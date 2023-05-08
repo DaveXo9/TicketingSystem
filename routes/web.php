@@ -18,9 +18,9 @@ use App\Http\Controllers\CommentController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 //Show register form for a user
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
@@ -97,17 +97,17 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->mid
 
 //-------------------------------------------------------------------------------------------
 
+// Show create ticket form
+Route::get('/tickets/create', [TicketController::class, 'create'])->middleware('auth');
 // Show ticket list
 Route::get('/tickets', [TicketController::class, 'index'])->middleware('auth');
 
 // Show open ticket list
-Route::get('/tickets/open', [TicketController::class, 'openTickets'])->middleware('auth');
+Route::get('/', [TicketController::class, 'openTickets'])->middleware('auth');
 
 // Show single ticket
 Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->middleware('auth');
 
-// Show create ticket form
-Route::get('/tickets/create', [TicketController::class, 'create'])->middleware('auth');
 
 // Store ticket
 Route::post('/tickets', [TicketController::class, 'store'])->middleware('auth');

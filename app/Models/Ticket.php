@@ -13,6 +13,9 @@ class Ticket extends Model
         'title',
         'description',
         'priority',
+        'user_id',
+        'client_id',
+        'status_id'
     ];
 
 
