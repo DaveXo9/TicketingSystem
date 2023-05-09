@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\Status;
 use App\Models\Ticket;
+use App\Models\User;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\ClientController;
 
 class TicketController extends Controller
@@ -93,7 +95,7 @@ class TicketController extends Controller
 
         $ticket->update($formFields);
 
-        return back()->with('message', 'Ticket updated');
+        return redirect('/')->with('message', 'Ticket updated');
 
         
     }

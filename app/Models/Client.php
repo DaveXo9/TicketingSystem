@@ -12,7 +12,7 @@ class Client extends Model
     protected $fillable=[
         'name',
         'email',
-        'phone number'
+        'phone_number'
     ];
 
     public function tickets() {
