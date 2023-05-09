@@ -9,6 +9,10 @@
         @else
         <p>No tickets found</p>
         @endunless
+
+        <div class="mt-6 p-4">
+        {{$tickets->links()}}
+        </div>
         
         
 </x-layout>
