@@ -42,7 +42,7 @@
     @endforeach
     
     @else
-    <p>No comment found</p>
+    <p class="text-l font-bold mb-8 mt-8">No comments found</p>
     @endunless
 
     <x-comment-form :ticket="$ticket"/>
