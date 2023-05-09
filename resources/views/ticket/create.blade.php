@@ -53,7 +53,7 @@
                 <div class="mt-2">
                 <label class="block text-sm text-gray-600" for="description">Description</label>
                 <textarea
-                    class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="description" name="description" value="{{old('description')}}" rows="3" placeholder="Enter your description"></textarea>
+                    class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="description" name="description" value="{{old('description')}}" rows="4" placeholder="Enter your description"></textarea>
                 
                     @error('description')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
