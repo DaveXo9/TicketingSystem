@@ -9,7 +9,7 @@ class ClientController extends Controller
 {
     
     public function index(){
-        $clients = Client::latest();
+        $clients = Client::latest()->paginate(10);
         return view('client.index', compact('clients'));
     }
 
@@ -27,7 +27,7 @@ class ClientController extends Controller
         }
     }
     public function edit(Client $client){
-        return view('client.edit');
+        return view('client.edit', compact('client'));
     }
 
     public function update(Request $request, Clinet $client){
