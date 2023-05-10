@@ -13,7 +13,7 @@ use App\Http\Controllers\ClientController;
 class TicketController extends Controller
 {
     public function index(){
-        $tickets = Ticket::latest()->paginate(10);
+        $tickets = Ticket::latest()->filter(request(['search']))->paginate(10);
         return view('ticket.index', compact('tickets'));
     }
     public function show(Ticket $ticket){

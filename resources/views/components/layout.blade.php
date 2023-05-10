@@ -61,31 +61,41 @@
 
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
         <!-- Desktop Header -->
-        <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
+        <header class="flex items-center justify-between bg-white py-2 px-6">
             <div class="w-1/2"></div>
-            <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
-                @auth
-                    <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-                        <span>{{ Str::limit(auth()->user()->name, 1, '') }}</span>
-                    </button>
-                    <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
-                    <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                        <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
-                        <form class="block px-4 py-2 account-link hover:text-white" method="POST" action="/logout">
-                            @csrf
-                            <button type="submit">
-                            Logout
-                            </button>
-                          </form>
-                  
-                    
-                    </div>
-                @else
-                    <a href="/login" class="block px-4 py-2 hover:text-blue-600"> <i class="fas fa-sign-in-alt"></i> Login</a>
-                    <a href="/register" class="block px-4 py-2 hover:text-blue-600"><i class="fas fa-user-plus"></i> Register</a>
-                @endauth
+            <form action="/tickets/index" class="flex justify-center w-full max-w-md mx-auto">
+            
+                <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden border border-gray-300">
+                <div class="grid place-items-center h-full w-12 text-blue-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <input class="peer h-full w-full outline-none text-sm text-gray-700 pr-2" type="text" id="search" name="search" placeholder="Search something.." />
             </div>
-        </header>
+    </form>
+            <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
+              @auth
+              <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none ml-4">
+                <span>{{ Str::limit(auth()->user()->name, 1, '') }}</span>
+              </button>
+              <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
+              <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+                <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
+                <form class="block px-4 py-2 account-link hover:text-white" method="POST" action="/logout">
+                  @csrf
+                  <button type="submit">
+                    Logout
+                  </button>
+                </form>
+              </div>
+              @else
+              <a href="/login" class="block px-4 py-2 hover:text-blue-600"> <i class="fas fa-sign-in-alt"></i> Login</a>
+              <a href="/register" class="block px-4 py-2 hover:text-blue-600"><i class="fas fa-user-plus"></i> Register</a>
+              @endauth
+            </div>
+          </header>
+          
         
         
 
