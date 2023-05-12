@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class StatusController extends Controller
 {
     public function index(){
-        $statuses = Status::latest();
+        $statuses = Status::latest()->get();
         return view('status.index', compact('statuses'));
     }
     public function create(){
@@ -26,7 +26,7 @@ class StatusController extends Controller
     }
 
     public function edit(Status $status){
-        return view('status.edit');
+        return view('status.edit', compact('status'));
     }
 
     public function update(Request $request, Status $status){
