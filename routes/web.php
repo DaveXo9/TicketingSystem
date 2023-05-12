@@ -22,6 +22,7 @@ use App\Http\Controllers\CommentController;
 //     return view('welcome');
 // });
 
+Route::get('/profile', [UserController::class, 'index'])->middleware('auth');
 //Show register form for a user
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 

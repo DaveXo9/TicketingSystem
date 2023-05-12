@@ -9,6 +9,11 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function index(){
+        $user = User::where('id', auth()->id())->first();
+        return view('users.index', compact('user'));
+    }
+
     public function create(){
         return view('users.register');
     }
@@ -57,7 +62,7 @@ class UserController extends Controller
     }
 
     public function edit(User $user){
-        return view('users.edit');
+        return view('users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user){
@@ -73,7 +78,7 @@ class UserController extends Controller
 
         $user->update($formFields);
 
-        return redirect('/')->with('message', 'User updated');
+        return redirect('/profile')->with('message', 'User updated');
     }
 
     public function destroy(User $user){
