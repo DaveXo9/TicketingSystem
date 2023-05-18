@@ -34,6 +34,7 @@ class ClientController extends Controller
     public function update(Request $request, Client $client){
         $formFields = $request->validate([
             'name' => ['required','min:3',],
+            'phone_number' => ['required'],
             'email'=> ['required', 'email', Rule::unique('clients', 'email')->ignore($client->id)],
         ]);
 
