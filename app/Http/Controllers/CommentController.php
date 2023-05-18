@@ -43,8 +43,7 @@ class CommentController extends Controller
         }
 
 
-        return back()->with('message', 'Comment updated');
-    }
+        return redirect('/tickets/' . $comment->ticket_id)->with('message', 'Comment updated');    }
 
     public function destroy(Comment $comment){
         if($comment->user_id != auth()->id()){
