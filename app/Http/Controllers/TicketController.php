@@ -5,6 +5,9 @@ use App\Models\Status;
 use App\Models\Ticket;
 use App\Models\User;
 
+use App\Services\ClientService;
+
+
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -12,6 +15,10 @@ use App\Http\Controllers\ClientController;
 
 class TicketController extends Controller
 {
+    public function __construct(private ClientService $clientService)
+    {
+    }
+
     public function index(){
         $tickets = Ticket::latest()->filter(request(['search']))->paginate(10);
         return view('ticket.index', compact('tickets'));
@@ -38,7 +45,7 @@ class TicketController extends Controller
         ]);
 
         $clientController = new ClientController();
-        $client = $clientController->create($clientFields);
+        $client = $this->clientService->create($clientFields);
 
         $ticketFields = $request->validate([
             'title' => ['required','min:3',],
