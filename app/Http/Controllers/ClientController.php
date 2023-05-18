@@ -6,6 +6,8 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+use App\Http\Requests\ClientRequest;
+
 class ClientController extends Controller
 {
     
@@ -31,12 +33,8 @@ class ClientController extends Controller
         return view('client.edit', compact('client'));
     }
 
-    public function update(Request $request, Client $client){
-        $formFields = $request->validate([
-            'name' => ['required','min:3',],
-            'phone_number' => ['required'],
-            'email'=> ['required', 'email', Rule::unique('clients', 'email')->ignore($client->id)],
-        ]);
+    public function update(ClientRequest $clientRequest, Client $client){
+        $formFields = $clientRequest->validated();
 
         $client->update($formFields);
 
