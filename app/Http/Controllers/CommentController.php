@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\CommentRequest;
+
+
 class CommentController extends Controller
 {
     // Get comments for a single ticket
@@ -13,11 +16,8 @@ class CommentController extends Controller
         return $comments;
     }
 
-    public function store(Request $request){
-        $formFields = $request->validate([
-            'comment' => 'required',
-            'ticket_id' => 'required'
-        ]);
+    public function store(CommentRequest $commentRequest){
+        $formFields = $commentRequest->validated();
 
         $formFields['user_id'] = auth()->id();
 
@@ -30,10 +30,8 @@ class CommentController extends Controller
         return view('comment.edit', compact('comment'));
     }
 
-    public function update(Request $request, Comment $comment){
-        $formField = $request->validate([
-            'comment' => 'required'
-        ]);
+    public function update(CommentRequest $commentRequest, Comment $comment){
+        $formField = $commentRequest->validated(); 
 
         if($comment->user_id != auth()->id()){
             abort(403, 'Unauthorized Action');

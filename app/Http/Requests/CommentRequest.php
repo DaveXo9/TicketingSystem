@@ -13,7 +13,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,13 @@ class CommentRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules = [
+            'comment'=> ['required', 'string'],
         ];
+        if($this->has('ticket_id')){
+            $rules['ticket_id'] = ['required'];
+        }
+
+        return $rules;
     }
 }
