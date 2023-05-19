@@ -6,6 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\RegisterRequest;
+
+
 
 class UserController extends Controller
 {
@@ -18,13 +22,8 @@ class UserController extends Controller
         return view('users.register');
     }
 
-    public function store(Request $request){
-        $formFields = $request->validate([
-            'name' => ['required','min:3',],
-            'email'=> ['required', 'email', Rule::unique('users', 'email')],
-            'password' => 'required|min:8|confirmed'
-        ]);
-
+    public function store(RegisterRequest $registerRequest){
+        $formFields = $registerRequest->validated();
         $formFields['password'] = bcrypt($formFields['password']);
         $user = User::create($formFields);
 
@@ -47,11 +46,8 @@ class UserController extends Controller
         return view('users.login');
     }
 
-    public function authenticate(Request $request){
-        $formFields = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => 'required'
-        ]);
+    public function authenticate(UserRequest $UserRequest){
+        $formFields = $UserRequest->validated();
 
         if(auth()->attempt($formFields)){
             return redirect('/');
@@ -65,16 +61,11 @@ class UserController extends Controller
         return view('users.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user){
-        $formFields = $request->validate([
-            'name' => ['required','min:3',],
-            'email'=> ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
-            'password' => 'sometimes|required|min:8|confirmed'
-        ]);
+    public function update(RegisterRequest $reigsterRequest, User $user){
+        $formFields = $reigsterRequest->validated();
 
-        if (isset($formFields['password'])) {
-            $formFields['password'] = bcrypt($formFields['password']);
-        }
+        $formFields['password'] = bcrypt($formFields['password']);
+    
 
         $user->update($formFields);
 
