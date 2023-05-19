@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Status;
 use Illuminate\Http\Request;
+use App\Http\Requests\StatusRequest;
 
 class StatusController extends Controller
 {
@@ -15,10 +16,8 @@ class StatusController extends Controller
         return view('status.create');
     }
     
-    public function store(Request $request){
-        $formField = $request->validate([
-            'status' => ['required', 'min:3']
-        ]);
+    public function store(StatusRequest $statusRequest){
+        $formField = $statusRequest->validated();
 
         $status = Status::create($formField);
 
@@ -29,10 +28,8 @@ class StatusController extends Controller
         return view('status.edit', compact('status'));
     }
 
-    public function update(Request $request, Status $status){
-        $formFields = $request->validate([
-            'status' => ['required', 'min:3']
-        ]);
+    public function update(StatusRequest $statusRequest, Status $status){
+        $formFields = $statusRequest->validated();
 
         $status->update($formFields);
 

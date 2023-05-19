@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
+use App\Http\Requests\ClientRequest;
 
 class ClientController extends Controller
 {
@@ -30,21 +33,18 @@ class ClientController extends Controller
         return view('client.edit', compact('client'));
     }
 
-    public function update(Request $request, Clinet $client){
-        $formFields = $request->validate([
-            'name' => ['required','min:3',],
-            'email'=> ['required', 'email', Rule::unique('clients', 'email')->ignore($client->id)],
-        ]);
+    public function update(ClientRequest $clientRequest, Client $client){
+        $formFields = $clientRequest->validated();
 
         $client->update($formFields);
 
-        return redirect('/')->with('message', 'Client updated');
+        return redirect('/clients')->with('message', 'Client updated');
     }
 
     public function destroy(Client $client){
         $client->delete();
 
-        return redirect('/')->with('message', 'Client deleted');
+        return redirect('/clients')->with('message', 'Client deleted');
     
     }
 }

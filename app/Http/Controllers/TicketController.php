@@ -5,13 +5,22 @@ use App\Models\Status;
 use App\Models\Ticket;
 use App\Models\User;
 
+use App\Services\ClientService;
+
+use App\Http\Requests\ClientRequest;
+use App\Http\Requests\TicketRequest;
+use App\Http\Requests\UserRequest;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Http\Controllers\ClientController;
 
 class TicketController extends Controller
 {
+    public function __construct(private ClientService $clientService)
+    {
+    }
+
     public function index(){
         $tickets = Ticket::latest()->filter(request(['search']))->paginate(10);
         return view('ticket.index', compact('tickets'));
@@ -30,23 +39,14 @@ class TicketController extends Controller
         return view('ticket.create');
     }
 
-    public function store(Request $request){
-        $clientFields = $request->validate([
-            'name' => ['required','min:3',],
-            'email'=> ['required', 'email', Rule::unique('clients', 'email')],
-            'phone_number' => 'required|string',
-        ]);
+    public function store(ClientRequest $clientRequest, TicketRequest $ticketRequest){
+        $clientFields = $clientRequest->validated();
 
-        $clientController = new ClientController();
-        $client = $clientController->create($clientFields);
+        $client = $this->clientService->create($clientFields);
 
-        $ticketFields = $request->validate([
-            'title' => ['required','min:3',],
-            'description'=> ['required', 'string'],
-            'priority' => 'required|string',
-        ]);
+        $ticketFields = $ticketRequest->safe()->except(['status']);
 
-        $status_id = Status::where('status', $request->status)->first()->id;
+        $status_id = Status::where('status', $ticketRequest->safe()->only(['status']))->first()->id;
 
         $ticketFields['user_id'] = auth()->id();
         $ticketFields['client_id'] = $client->id;
@@ -62,21 +62,12 @@ class TicketController extends Controller
         return view('ticket.edit', compact('ticket'));
     }
 
-    public function update(Request $request, Ticket $ticket){
-        $formFields = $request->validate([
-            'title' => ['required','min:3',],
-            'description'=> ['required', 'string'],
-            'priority' => 'required|string',
-        ]);
+    public function update(TicketRequest $ticketRequest, UserRequest $userRequest, Ticket $ticket){
+        $formFields = $ticketRequest->safe()->except(['status']);
 
-        $request->validate([
-            'email' => 'required|email',
-            'status' => 'required|string',
-        ]);
+        $status_id = Status::where('status', $ticketRequest->safe()->only(['status']))->first()->id;
 
-        $status_id = Status::where('status', $request->status)->first()->id;
-
-        $user_id = User::where('email', $request->email)->first()->id;
+        $user_id = User::where('email', $userRequest->safe()->only(['email']))->first()->id;
 
         if (!$user_id) {
             return back()->withErrors(['email' => 'The provided email is not associated with any user']);

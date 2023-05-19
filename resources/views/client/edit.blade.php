@@ -7,7 +7,7 @@
 <div class="leading-loose">
     <form method="POST" action="/clients/{{$client->id}}" class="p-10 bg-white rounded shadow-xl">
         @csrf
-
+        @method('PUT')
         <p class="text-xl pb-6 flex items-center">
             Client
         </p>

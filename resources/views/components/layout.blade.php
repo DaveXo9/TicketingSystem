@@ -38,7 +38,7 @@
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="/tickets/index" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="/tickets" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-align-left mr-3"></i>
                 Tickets
             </a>
@@ -63,7 +63,7 @@
         <!-- Desktop Header -->
         <header class="flex items-center justify-between bg-white py-2 px-6">
             <div class="w-1/2"></div>
-            <form action="/tickets/index" class="flex justify-center w-full max-w-md mx-auto">
+            <form action="/tickets" class="flex justify-center w-full max-w-md mx-auto">
             
                 <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden border border-gray-300">
                 <div class="grid place-items-center h-full w-12 text-blue-600">
@@ -115,7 +115,7 @@
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
-                <a href="/tickets/index" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="/tickets" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-align-left mr-3"></i>
                     Tickets
                 </a>
