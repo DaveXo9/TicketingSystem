@@ -11,6 +11,7 @@ use App\Http\Requests\ClientRequest;
 use App\Http\Requests\TicketRequest;
 use App\Http\Requests\UserRequest;
 
+use App\Notifications\TicketAssigned;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -67,20 +68,21 @@ class TicketController extends Controller
 
         $status_id = Status::where('status', $ticketRequest->safe()->only(['status']))->first()->id;
 
-        $user_id = User::where('email', $userRequest->safe()->only(['email']))->first()->id;
+        $user = User::where('email', $userRequest->safe()->only(['email']))->first();
 
-        if (!$user_id) {
+        if (!$user->id) {
             return back()->withErrors(['email' => 'The provided email is not associated with any user']);
         }
 
-        if ($ticket->user_id != $user_id) {
-            $formFields['user_id'] = $user_id;
+        if ($ticket->user_id != $user->id) {
+            $formFields['user_id'] = $user->id;
         }
         if ($ticket->status_id != $status_id) {
             $formFields['status_id'] = $status_id;
         }
 
         $ticket->update($formFields);
+        $user->notify(new TicketAssigned($ticket));
 
         return redirect('/')->with('message', 'Ticket updated');
 

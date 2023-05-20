@@ -213,5 +213,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
+    'enable_notifications' => env('ENABLE_NOTIFICATIONS', true),
+
 
 ];
