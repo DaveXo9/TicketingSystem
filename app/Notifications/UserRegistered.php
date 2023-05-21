@@ -10,8 +10,9 @@ use Illuminate\Notifications\Notification;
 use App\Models\User;
 
 
-class UserRegistered extends Notification
+class UserRegistered extends Notification implements ShouldQueue
 {
+    use Queueable;
 
 
     /**
@@ -32,7 +33,11 @@ class UserRegistered extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        if (config('app.enable_notifications')) {
+            return ['mail'];
+        }
+
+        return [];
     }
 
     /**
@@ -44,7 +49,7 @@ class UserRegistered extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject('Welcome to Ticketing System application' . $this->user->name) 
+                    ->subject('Welcome to Ticketing System application ' . $this->user->name) 
                     ->line('Your account has been created successfully.')
                     ->action('View tickets', url('/'))
                     ->line('Thank you!');
