@@ -23,6 +23,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('status', StatusController::class);
     Route::resource('comments', CommentController::class);
     Route::resource('tickets', TicketController::class);
+    
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+    Route::get('/profile', [UserController::class, 'index'])->middleware('auth');
+    Route::get('/', [TicketController::class, 'openTickets'])->middleware('auth');
 });
 
 Route::middleware('guest')->group(function () {
@@ -32,8 +37,5 @@ Route::middleware('guest')->group(function () {
     Route::post('/users', [UserController::class, 'store']);
 });
 
-Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
-Route::get('/profile', [UserController::class, 'index'])->middleware('auth');
 
-Route::get('/', [TicketController::class, 'openTickets'])->middleware('auth');
 
