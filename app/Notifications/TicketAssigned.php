@@ -5,6 +5,7 @@ namespace App\Notifications;
 use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -35,11 +36,8 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
             ->line('Thank you!');
     }
 
-    public function toArray($notifiable): array
-    {
-        return [];
-    }
 
+    
     /**
      * Get the broadcast representation of the notification.
      *
@@ -52,7 +50,29 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
 
         return [
             'title' => 'New ticket assigned: ' . $this->ticket->title,
+            'created_at' => $this->ticket->created_at,
             'message' => 'You have been assigned a new ticket: ' . $this->ticket->title . 'with priority: ' . $this->ticket->priority,
+            'url' => '/tickets/' . $this->ticket->id,
+        ];
+    }
+    public function broadcastOn(): Channel
+    {
+       
+        return new Channel('notifications');
+
+    }
+
+public function broadcastAs()
+    {
+    
+        return 'ticket-assigned';
+    }
+    public function toArray($notifiable): array
+    {
+        return [
+            'title' => 'New ticket assigned: ' . $this->ticket->title,
+            'created_at' => $this->ticket->created_at,
+            'message' => 'You have been assigned a new ticket: ' . $this->ticket->title . ' with priority: ' . $this->ticket->priority,
             'url' => '/tickets/' . $this->ticket->id,
         ];
     }
