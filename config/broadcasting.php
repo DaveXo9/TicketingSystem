@@ -29,22 +29,16 @@ return [
     */
 
     'connections' => [
-
-      'connections' => [
-    'pusher' => [
-        'driver' => 'pusher',
-        'key' => env('PUSHER_APP_KEY'),
-        'secret' => env('PUSHER_APP_SECRET'),
-        'app_id' => env('PUSHER_APP_ID'),
-        'options' => [
-            'cluster' => 'eu',
-            'useTLS' => true,
+        'pusher' => [
+            'driver' => 'pusher',
+            'key' => env('PUSHER_APP_KEY'),
+            'secret' => env('PUSHER_APP_SECRET'),
+            'app_id' => env('PUSHER_APP_ID'),
+            'options' => [
+                'cluster' => 'eu',
+                'useTLS' => true,
+            ],
         ],
-        // 'host' => 'api-eu.pusher.com',
-
-    ],
-],
-
 
         'ably' => [
             'driver' => 'ably',
@@ -63,7 +57,7 @@ return [
         'null' => [
             'driver' => 'null',
         ],
-
     ],
 
 ];
+
