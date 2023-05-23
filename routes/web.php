@@ -24,6 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('status', StatusController::class);
     Route::resource('comments', CommentController::class);
     Route::resource('tickets', TicketController::class);
+    Route::get('/welcome', function () {
+        $userId = auth()->user()->id;
+        return view('welcome');
+    });
     
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
