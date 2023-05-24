@@ -12,23 +12,29 @@
     });
 
     var channel = pusher.subscribe('notifications');
-    channel.bind('ticket-assigned', function(data) {
-      showAlert(data);
+    channel.bind('pusher:subscription_succeeded', function(members) {
+    alert('successfully subscribed!');
+});
+    
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', function(data) {
+      appendNotification(data);
+      console.log(data);
     });
 
-    function showAlert(data) {
-      alert("Title: " + data['title'] +
-            "\nCreated At: " + data.created_at +
-            "\nMessage: " + data.message +
-            "\nURL: " + data.url);
+    function appendNotification(data) {
+      var notificationsDiv = document.getElementById('notifications');
+      var notificationElement = document.createElement('div');
+      notificationElement.innerHTML = '<p>Title: ' + data.title + '</p>' +
+                                      '<p>Created At: ' + data.created_at + '</p>' +
+                                      '<p>Message: ' + data.message + '</p>' +
+                                      '<p>URL: ' + data.url + '</p>';
+      notificationsDiv.appendChild(notificationElement);
     }
   </script>
 </head>
 <body>
   <h1>Pusher Test</h1>
-  <p>
-    Try publishing an event to channel <code>notifications</code>
-    with event name <code>ticket-assigned</code>.
-  </p>
+  <div id="notifications"></div>
 </body>
 </html>

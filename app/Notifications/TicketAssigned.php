@@ -10,17 +10,23 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+
 
 class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueue
 {
     use Queueable;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
 
     public function __construct(protected Ticket $ticket) {}
 
     public function via($notifiable): array
     {
         if (config('app.enable_notifications')) {
-            return ['mail', 'broadcast'];
+            return ['mail','broadcast'];
         }
 
         return [];
@@ -55,25 +61,20 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
             'url' => '/tickets/' . $this->ticket->id,
         ];
     }
-    public function broadcastOn(): Channel
+    public function broadcastOn()
     {
-       
-        return new Channel('notifications');
-
+        return ['notifications'];
     }
-
-public function broadcastAs()
+  
+    public function broadcastAs()
     {
-    
         return 'ticket-assigned';
     }
+    
     public function toArray($notifiable): array
     {
         return [
-            'title' => 'New ticket assigned: ' . $this->ticket->title,
-            'created_at' => $this->ticket->created_at,
-            'message' => 'You have been assigned a new ticket: ' . $this->ticket->title . ' with priority: ' . $this->ticket->priority,
-            'url' => '/tickets/' . $this->ticket->id,
+            
         ];
     }
 }
