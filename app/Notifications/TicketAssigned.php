@@ -57,7 +57,7 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
         return [
             'title' => 'New ticket assigned: ' . $this->ticket->title,
             'created_at' => $this->ticket->created_at,
-            'message' => 'You have been assigned a new ticket: ' . $this->ticket->title . 'with priority: ' . $this->ticket->priority,
+            'message' => 'You have been assigned a new ticket: ' . $this->ticket->title . ' Ticket has priority: ' . $this->ticket->priority,
             'url' => '/tickets/' . $this->ticket->id,
             'user_id' => $this->ticket->user_id,
         ];

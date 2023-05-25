@@ -34,7 +34,8 @@
           '<p class="text-gray-700">' +
           data.message +
           '</p>' + 
-          '</div>' + '</br>';
+          '<a  href="' + data.url + '"  class="text-blue-600 dark:text-blue-400 hover:underline">View Ticket ⟶</a>'
+          + '</div>' + '</br>';
         notificationsDiv.appendChild(notificationElement);
       }
     </script>
