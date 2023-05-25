@@ -25,6 +25,9 @@ class Ticket extends Model
             ->orWhere('priority', 'like', '%' . request('search') . '%')
             ->orWhereHas('client', function($query){
                 $query->where('name', 'like', '%' . request('search') . '%');
+            })
+            ->orWhereHas('status', function($query){
+                $query->where('status', 'like', '%' . request('search') . '%');
             });
         }
     }
