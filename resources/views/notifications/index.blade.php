@@ -3,8 +3,9 @@
     <script>
         
       Pusher.logToConsole = true;
+      var pusherAppKey = "{{ env('PUSHER_APP_KEY') }}";
   
-      var pusher = new Pusher(env('PUSHER_APP_KEY'), {
+      var pusher = new Pusher(pusherAppKey, {
         cluster: 'eu'
       });
   
