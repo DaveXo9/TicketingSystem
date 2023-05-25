@@ -26,7 +26,7 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
     public function via($notifiable): array
     {
         if (config('app.enable_notifications')) {
-            return ['mail','broadcast'];
+            return ['broadcast'];
         }
 
         return [];
@@ -59,6 +59,7 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
             'created_at' => $this->ticket->created_at,
             'message' => 'You have been assigned a new ticket: ' . $this->ticket->title . 'with priority: ' . $this->ticket->priority,
             'url' => '/tickets/' . $this->ticket->id,
+            'user_id' => $this->ticket->user_id,
         ];
     }
     public function broadcastOn()

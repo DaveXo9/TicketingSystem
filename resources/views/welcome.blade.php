@@ -16,7 +16,7 @@
     alert('successfully subscribed!');
 });
     
-    var channel = pusher.subscribe('my-channel');
+    var channel = pusher.subscribe('notifications');
     channel.bind('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', function(data) {
       appendNotification(data);
       console.log(data);
