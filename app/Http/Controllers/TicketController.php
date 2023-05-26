@@ -69,6 +69,7 @@ class TicketController extends Controller
 
     public function update(TicketRequest $ticketRequest, UserRequest $userRequest, Ticket $ticket){
         $formFields = $ticketRequest->safe()->except(['status']);
+        $bool = 0;
 
         $status_id = Status::where('status', $ticketRequest->safe()->only(['status']))->first()->id;
 
@@ -80,14 +81,16 @@ class TicketController extends Controller
 
         if ($ticket->user_id != $user->id) {
             $formFields['user_id'] = $user->id;
+            $bool = 1;
         }
         if ($ticket->status_id != $status_id) {
             $formFields['status_id'] = $status_id;
         }
 
         $ticket->update($formFields);
+        if($bool){
         $user->notify(new TicketAssigned($ticket));
-
+        }
         return redirect('/')->with('message', 'Ticket updated');
 
         
