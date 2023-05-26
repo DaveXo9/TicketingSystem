@@ -25,6 +25,8 @@ class TicketController extends Controller
     public function index(){
         $tickets = Ticket::latest()->filter(request(['search']))->paginate(10);
         return view('ticket.index', compact('tickets'));
+
+        // $tickets = Ticket::where('user_id', auth()->id())->latest()->filter(request(['search']))->paginate(10);
     }
     public function show(Ticket $ticket){
         return view('ticket.show', compact('ticket'));
@@ -33,6 +35,8 @@ class TicketController extends Controller
     public function openTickets(){
         $tickets = Ticket::where('status_id', 1)->latest()->paginate(10);
         return view('ticket.index', compact('tickets'));
+        // $tickets = Ticket::where('user_id', auth()->id())->where('status_id', 1)->latest()->paginate(10);
+
     }
 
 
