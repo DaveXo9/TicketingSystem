@@ -89,7 +89,8 @@ class TicketController extends Controller
 
         $ticket->update($formFields);
         if($bool){
-        $user->notify(new TicketAssigned($ticket));
+        event(new TicketAssigned($ticket));
+        // $user->notify(new TicketAssigned($ticket));
         }
         return redirect('/')->with('message', 'Ticket updated');
 

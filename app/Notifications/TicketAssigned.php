@@ -21,7 +21,7 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public function __construct(protected Ticket $ticket) {}
+    public function __construct(public Ticket $ticket) {}
 
     public function via($notifiable): array
     {

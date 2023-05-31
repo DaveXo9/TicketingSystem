@@ -28,13 +28,16 @@ class SaveNotification implements ShouldQueue
      */
     public function handle(TicketAssigned $event)
     {
+        $user = $event->ticket->user;
+        $user->notify(new TicketAssigned($event->ticket));
+
         $notificationData = [
             'type' => 'ticket_assigned',
-            'user_id' => $event->user_id,
+            'user_id' => $event->ticket->user_id,
             'data' => [
-                'title' => $event->title,
-                'created_at' => $event->created_at,
-                'message' => $event->message,
+                'title' => $event->ticket->title,
+                'created_at' => $event->ticket->created_at,
+                'message' => $event->ticket->message,
             ],
         ];
 
