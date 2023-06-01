@@ -25,9 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('comments', CommentController::class);
     Route::resource('tickets', TicketController::class);
     
-    Route::get('/notifications', function () {
-        return view('notifications.index');
-    });    
+    Route::get('/notifications', [NotificationController::class, 'index']); 
     Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
     Route::get('/profile', [UserController::class, 'index'])->middleware('auth');
     Route::get('/', [TicketController::class, 'openTickets'])->middleware('auth');

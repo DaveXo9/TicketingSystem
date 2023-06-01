@@ -34,16 +34,15 @@ class SaveNotification implements ShouldQueue
         $notificationData = [
             'type' => 'ticket_assigned',
             'user_id' => $event->ticket->user_id,
-            'data' => [
-                'title' => $event->ticket->title,
-                'created_at' => $event->ticket->created_at,
-                'message' => $event->ticket->message,
-            ],
+            'title' => 'New ticket assigned: ' . $event->ticket->title,
+            'message' => 'You have been assigned a new ticket: ' . $event->ticket->title . ' Ticket has priority: ' . $event->ticket->priority,
+            'url' => url('/tickets/' . $event->ticket->id),
+            'sent_at' => now(),
+            
         ];
 
         // Create a new notification
         Notification::create($notificationData);
 
-        // Save the notification to the database
     }
 }
