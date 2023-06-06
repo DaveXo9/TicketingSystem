@@ -15,9 +15,9 @@
       });
   
       var channel = pusher.subscribe('notifications');
-      channel.bind('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', function(data) {
+      channel.bind('ticket-assigned', function(data) {
+        console.log(data.title);
         appendNotification(data);
-        console.log(data);
       });
   
       function appendNotification(data) {

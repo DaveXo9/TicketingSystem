@@ -26,7 +26,7 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
     public function via($notifiable): array
     {
         if (config('app.enable_notifications')) {
-            return ['mail','broadcast'];
+            return ['broadcast'];
         }
 
         return [];
@@ -50,7 +50,7 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toBroadcast($notifiable)
+    public function broadcastWith()
     {
         $url = url('/tickets/' . $this->ticket->id); 
 
