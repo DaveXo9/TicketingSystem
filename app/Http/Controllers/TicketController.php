@@ -1,20 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Status;
-use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Client;
+use App\Models\Status;
 
+use App\Models\Ticket;
+
+use Illuminate\Http\Request;
 use App\Services\ClientService;
+use Illuminate\Validation\Rule;
+
+use App\Http\Requests\UserRequest;
 
 use App\Http\Requests\ClientRequest;
 use App\Http\Requests\TicketRequest;
-use App\Http\Requests\UserRequest;
-
 use App\Notifications\TicketAssigned;
-
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class TicketController extends Controller
 {
@@ -41,7 +42,8 @@ class TicketController extends Controller
 
 
     public function create(){
-        return view('ticket.create');
+        $clients = Client::all();
+        return view('ticket.create', compact('clients'));
     }
 
     public function store(ClientRequest $clientRequest, TicketRequest $ticketRequest){

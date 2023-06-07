@@ -1,4 +1,72 @@
+
 <x-layout>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        #client-list {
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 4px;
+        }
+    
+        #client-list li {
+            cursor: pointer;
+            padding: 5px;
+        }
+    
+        #client-list li:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+    
+    <script>
+        $(document).ready(function() {
+            // Define an array of client data from the server-side
+            var clients = {!! json_encode($clients) !!};
+    
+            // Autocomplete functionality on the 'name' input field
+            $("#name").on("input", function() {
+                var nameInput = $(this).val().toLowerCase();
+    
+                var matchingClients = clients.filter(function(client) {
+                    return client.name.toLowerCase().includes(nameInput);
+                });
+    
+                // Display the matching clients in a list
+                var listItems = matchingClients.map(function(client) {
+                    return "<li data-email='" + client.email + "' data-phone='" + client.phone_number + "'>" + client.name + "</li>";
+                });
+    
+                $("#client-list").html(listItems.join(''));
+    
+                // Show or hide the client list based on the matching results
+                if (matchingClients.length > 0 && nameInput.length > 0) {
+                    $("#client-list").show();
+                } else {
+                    $("#client-list").hide();
+                }
+            });
+    
+            // When a client is clicked from the list
+            $(document).on("click", "#client-list li", function() {
+                var email = $(this).data("email");
+                var phone = $(this).data("phone");
+    
+                $("#email").val(email);
+                $("#phone_number").val(phone);
+                $("#name").val($(this).text());
+    
+                $("#client-list").hide(); // Hide the list
+            });
+        });
+    </script>
+    
+
     <div class="flex justify-center mx-auto">
         <div class="w-full lg:w-1/2 my-6 pr-0 lg:pr-2">
             <p class="text-xl pb-6 flex items-center">
@@ -20,6 +88,7 @@
                         @enderror
 
                     </div>
+                    <ul id="client-list"></ul>
                     <div class="mt-2">
                         <label class="block text-sm text-gray-600" for="email">Email</label>
                         <input class="w-full px-5  py-4 text-gray-700 bg-gray-200 rounded" id="email" name="email" type="email" placeholder="Your Email" value="{{old('emails')}}" aria-label="Email">
