@@ -8,6 +8,8 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NotificationController;
 
+use Illuminate\Http\Request;
+use Pusher\Pusher;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,3 +42,28 @@ Route::middleware('guest')->group(function () {
 
 
 
+Route::post('/broadcasting/auth', function (Request $request) {
+    $pusher = new Pusher(
+        env('PUSHER_APP_KEY'),
+        env('PUSHER_APP_SECRET'),
+        env('PUSHER_APP_ID'),
+        [
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'useTLS' => true,
+        ]
+    );
+
+    $socket_id = $request->socket_id;
+    $channel_name = $request->channel_name;
+
+    // Extract the user ID from the channel name
+    $userId = str_replace('private-notifications.', '', $channel_name);
+
+    // Compare with the logged-in user ID
+    if (auth()->check() && auth()->user()->id == $userId) {
+        $auth = $pusher->socket_auth($channel_name, $socket_id);
+        return response($auth);
+    }
+
+    return response()->json(['message' => 'Unauthorized'], 403);
+});

@@ -4,15 +4,16 @@ namespace App\Notifications;
 
 use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Notifications\Notification;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 
 class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueue
@@ -64,7 +65,8 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
     }
     public function broadcastOn()
     {
-        return ['notifications'];
+        // private channel
+        return new PrivateChannel('private-notifications.' . $this->ticket->user_id);
     }
   
     public function broadcastAs()
