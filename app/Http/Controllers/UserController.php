@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+use App\Notifications\UserRegistered;
+
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\RegisterRequest;
 
@@ -28,6 +30,8 @@ class UserController extends Controller
         $user = User::create($formFields);
 
         auth()->login($user);
+
+        $user->notify(new UserRegistered($user));
 
         return redirect('/')->with('message', 'User created and logged in');
     }

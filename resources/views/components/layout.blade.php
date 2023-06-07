@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticketing System</title>
@@ -78,9 +80,13 @@
               @auth
               <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none ml-4">
                 <span>{{ Str::limit(auth()->user()->name, 1, '') }}</span>
+                {{-- @if (auth()->user()->unreadNotifications()->count() > 0)
+                <span class="w-2 h-2 bg-red-500 rounded-full absolute top-0 right-0"></span>
+                @endif --}}
               </button>
               <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
               <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+                <a href="/notifications" class="block px-4 py-2 account-link hover:text-white">Notifications</a>
                 <a href="/profile" class="block px-4 py-2 account-link hover:text-white">Account</a>
                 <form class="block px-4 py-2 account-link hover:text-white" method="POST" action="/logout">
                   @csrf
