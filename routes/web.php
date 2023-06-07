@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChannelAuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TicketController;
@@ -42,28 +43,4 @@ Route::middleware('guest')->group(function () {
 
 
 
-Route::post('/broadcasting/auth', function (Request $request) {
-    $pusher = new Pusher(
-        env('PUSHER_APP_KEY'),
-        env('PUSHER_APP_SECRET'),
-        env('PUSHER_APP_ID'),
-        [
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'useTLS' => true,
-        ]
-    );
-
-    $socket_id = $request->socket_id;
-    $channel_name = $request->channel_name;
-
-    // Extract the user ID from the channel name
-    $userId = str_replace('private-notifications.', '', $channel_name);
-
-    // Compare with the logged-in user ID
-    if (auth()->check() && auth()->user()->id == $userId) {
-        $auth = $pusher->socket_auth($channel_name, $socket_id);
-        return response($auth);
-    }
-
-    return response()->json(['message' => 'Unauthorized'], 403);
-});
+Route::post('/broadcasting/auth', [ChannelAuthController::class, 'authenticate']);

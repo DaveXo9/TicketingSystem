@@ -66,7 +66,7 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
     public function broadcastOn()
     {
         // private channel
-        return new PrivateChannel('private-notifications.' . $this->ticket->user_id);
+        return new PrivateChannel('notifications.' . $this->ticket->user_id);
     }
   
     public function broadcastAs()
