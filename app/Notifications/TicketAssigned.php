@@ -73,11 +73,5 @@ class TicketAssigned extends Notification implements ShouldBroadcast, ShouldQueu
     {
         return 'ticket-assigned';
     }
-    
-    public function toArray($notifiable): array
-    {
-        return [
-            
-        ];
-    }
+
 }

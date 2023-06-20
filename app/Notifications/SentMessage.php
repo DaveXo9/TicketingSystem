@@ -24,10 +24,9 @@ class SentMessage extends Notification implements ShouldBroadcast, ShouldQueue
     public $message;
     public $user;
 
-    public function __construct(User $user, Message $message)
+    public function __construct(Message $message)
     {
         $this->message = $message;
-        $this->user = $user;
         //
     }
 
