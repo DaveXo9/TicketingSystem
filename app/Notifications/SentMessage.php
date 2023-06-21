@@ -14,6 +14,8 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class SentMessage extends Notification implements ShouldBroadcast, ShouldQueue
 {
     use Queueable;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
 
     /**
      * Create a new notification instance.
@@ -22,7 +24,6 @@ class SentMessage extends Notification implements ShouldBroadcast, ShouldQueue
      */
 
     public $message;
-    public $user;
 
     public function __construct(Message $message)
     {
