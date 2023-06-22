@@ -13,11 +13,10 @@ class ChatController extends Controller
     {
         $users = User::where('id', '!=', auth()->id())->latest()->get();
         // id of the latest user that is not the authenticated user
-        $recepient_id = User::where('id', '!=', auth()->id())->first()->id;
-        // $messages = Message::where('user_id', auth()->id())->where('recepient_id', $recepient_id)->latest()->get();
-
-
-        return view('chat.index', compact('users'));
+        $recepient_id = User::where('id', '!=', auth()->id())->orderBy('created_at', 'desc')->value('id');
+        $messages = Message::where('user_id', auth()->id())->where('recepient_id', $recepient_id)->orwhere('user_id', $recepient_id)->where('recepient_id', auth()->id())->latest()->get();
+    
+        return view('chat.index', compact('users', 'messages'));
     }
 
     public function show(User $recepient){
