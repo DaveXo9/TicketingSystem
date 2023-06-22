@@ -43,6 +43,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::get('/chat', [ChatController::class, 'index'])->middleware('auth');
+Route::get('/chat/{recepient}', [ChatController::class, 'show'])->middleware('auth');
+Route::post('/chat', [ChatController::class, 'store'])->middleware('auth');
 
 
 

@@ -21,9 +21,10 @@ class ChatController extends Controller
 
     public function show(User $recepient){
         $recepient_id = $recepient->id;
-        $messages = Message::where('user_id', auth()-id())->where('recepient_id', $recepient->id)->latest()->get();
+        $users = User::where('id', '!=', auth()->id())->latest()->get();
+        $messages = Message::where('user_id', auth()->id())->where('recepient_id', $recepient_id)->orwhere('user_id', $recepient_id)->where('recepient_id', auth()->id())->latest()->get();
 
-        return view('chat.show', compact('messages', 'recepient_id'));
+        return view('chat.show', compact('messages', 'recepient_id', 'users'));
     }
 
     public function store(Request $request)
@@ -37,5 +38,7 @@ class ChatController extends Controller
 
         $message = Message::create($formField);
         event(new SentMessage($message));
+
+        return back();
     }
 }
