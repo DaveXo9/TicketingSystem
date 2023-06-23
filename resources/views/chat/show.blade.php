@@ -1,5 +1,7 @@
 <x-layout>
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <script>
       Pusher.logToConsole = true;
@@ -29,8 +31,33 @@
       });
   
       channel.bind('message-sent', function(data) {
+        console.log('message received');
         appendMessage(data);
       });
+
+      function sendMessage(message) {
+            console.log('sending message');
+            var url = '/chat';
+            var data = {
+                message: message,
+                recepient_id: recipientId,
+                _token: '{{ csrf_token() }}'
+            };
+
+            // Send the AJAX request
+            $.post(url, data, function(response) {
+                console.log("here");
+            });
+        }
+
+        // Event listener for the send button click
+        $(document).on('click', '#send-button', function() {
+        console.log('send button clicked');
+        var message = document.getElementById('message-input').value;
+        sendMessage(message);
+        document.getElementById('message-input').value = '';
+});
+
       </script>
 
     <!-- component -->
@@ -84,8 +111,8 @@
                 </div>
                 <div class="flex items-center py-5">
                     <input type="hidden" name="recepient_id" value="{{ $recepient_id }}">
-                    <input class="flex-grow bg-gray-300 py-3 px-3 rounded-l-xl" type="text" placeholder="Type your message..." />
-                    <button class="bg-blue-400 text-white px-4 py-3 rounded-r-xl" id="send-button">Send</button>
+                    <input class="flex-grow bg-gray-300 py-3 px-3 rounded-l-xl" type="text" id = "message-input" placeholder="Type your message..." />
+                    <button class="bg-blue-400 text-white px-4 py-3 rounded-r-xl" id="send-button" name="send-button">Send</button>
                 </div>
             </div>
             <!-- end message -->
