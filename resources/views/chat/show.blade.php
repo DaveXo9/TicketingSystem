@@ -31,9 +31,29 @@
       });
   
       channel.bind('message-sent', function(data) {
-        console.log('message received');
+        console.log(data.message.message);
         appendMessage(data);
       });
+      
+      function appendMessage(data) {
+        var messageDiv = document.createElement('div');
+        messageDiv.classList.add('flex', 'justify-end', 'mb-4');
+
+        var messageContent = document.createElement('div');
+        messageContent.classList.add('mr-2', 'py-3', 'px-4', 'bg-blue-400', 'rounded-bl-3xl', 'rounded-tl-3xl', 'rounded-tr-xl', 'text-white');
+        messageContent.textContent = data.message.message;
+
+        var userAvatar = document.createElement('div');
+        userAvatar.classList.add('bg-blue-400', 'text-white', 'rounded-full', 'h-8', 'w-8', 'flex', 'items-center', 'justify-center', 'text-xs', 'font-semibold');
+        userAvatar.textContent = '{{ substr(auth()->user()->name, 0, 1) }}';
+
+        messageDiv.appendChild(messageContent);
+        messageDiv.appendChild(userAvatar);
+
+        var chatMessagesContainer = document.querySelector('.flex.flex-col.mt-5.overflow-y-auto');
+        chatMessagesContainer.appendChild(messageDiv);
+      } 
+
 
       function sendMessage(message) {
             console.log('sending message');
@@ -86,7 +106,7 @@
 
             <!-- message -->
             <div class="w-full px-5 flex flex-col justify-between">
-                <div class="flex flex-col mt-5">
+                <div class="flex flex-col mt-5 overflow-y-auto" style="max-height:600px">
                     <!-- Add chat messages here -->
                     @foreach ($messages as $message)
                     @if ($message->user_id == Auth::id())

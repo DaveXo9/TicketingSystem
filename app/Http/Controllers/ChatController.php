@@ -22,7 +22,7 @@ class ChatController extends Controller
     public function show(User $recepient){
         $recepient_id = $recepient->id;
         $users = User::where('id', '!=', auth()->id())->latest()->get();
-        $messages = Message::where('user_id', auth()->id())->where('recepient_id', $recepient_id)->orwhere('user_id', $recepient_id)->where('recepient_id', auth()->id())->latest()->get();
+        $messages = Message::where('user_id', auth()->id())->where('recepient_id', $recepient_id)->orwhere('user_id', $recepient_id)->where('recepient_id', auth()->id())->oldest()->get();
 
         return view('chat.show', compact('messages', 'recepient_id', 'users'));
     }
