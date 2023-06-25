@@ -33,6 +33,7 @@
       channel.bind('message-sent', function(data) {
         console.log(data.message.message);
         appendMessage(data);
+        scrollToBottom();
       });
       
       function appendMessage(data) {
@@ -76,7 +77,13 @@
         var message = document.getElementById('message-input').value;
         sendMessage(message);
         document.getElementById('message-input').value = '';
-});
+        });
+
+        function scrollToBottom() {
+            var chatMessagesContainer = document.querySelector('.flex.flex-col.mt-5.overflow-y-auto');
+            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+        }
+
 
       </script>
 
