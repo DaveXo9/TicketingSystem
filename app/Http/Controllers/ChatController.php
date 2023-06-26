@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\ChatRequest;
+
 use App\Notifications\SentMessage;
 
 class ChatController extends Controller
 {
-    public function index()
+    public function index():View
     {
         $users = User::where('id', '!=', auth()->id())->latest()->get();
         // id of the latest user that is not the authenticated user
@@ -19,7 +21,7 @@ class ChatController extends Controller
         return view('chat.index', compact('users', 'messages', 'recepient_id'));
     }
 
-    public function show(User $recepient){
+    public function show(User $recepient):View {
         $recepient_id = $recepient->id;
         $users = User::where('id', '!=', auth()->id())->latest()->get();
         $messages = Message::where('user_id', auth()->id())->where('recepient_id', $recepient_id)->orwhere('user_id', $recepient_id)->where('recepient_id', auth()->id())->oldest()->get();
@@ -27,12 +29,9 @@ class ChatController extends Controller
         return view('chat.show', compact('messages', 'recepient_id', 'users'));
     }
 
-    public function store(Request $request)
+    public function store(ChatRequest $chatRequest):RedirectResponse
     {
-        $formField = $request->validate([
-            'message' => ['required', 'string'],
-            'recepient_id' => ['required'],
-        ]);
+        $formField = $chatRequest->validated();
 
         $formField['user_id'] = auth()->id();
 
