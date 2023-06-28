@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
-
 use App\Http\Requests\CommentRequest;
+
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class CommentController extends Controller

@@ -6,6 +6,8 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ChatRequest;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 use App\Notifications\SentMessage;
 

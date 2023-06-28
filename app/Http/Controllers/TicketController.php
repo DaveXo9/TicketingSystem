@@ -10,6 +10,8 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 use App\Http\Requests\UserRequest;
 
