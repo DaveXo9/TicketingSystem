@@ -11,7 +11,7 @@ use App\Http\Requests\ClientRequest;
 class ClientController extends Controller
 {
     
-    public function index(){
+    public function index():View {
         $clients = Client::latest()->paginate(10);
         return view('client.index', compact('clients'));
     }
@@ -29,11 +29,11 @@ class ClientController extends Controller
             return $client;
         }
     }
-    public function edit(Client $client){
+    public function edit(Client $client):View{
         return view('client.edit', compact('client'));
     }
 
-    public function update(ClientRequest $clientRequest, Client $client){
+    public function update(ClientRequest $clientRequest, Client $client):RedirectResponse{
         $formFields = $clientRequest->validated();
 
         $client->update($formFields);
@@ -41,7 +41,7 @@ class ClientController extends Controller
         return redirect('/clients')->with('message', 'Client updated');
     }
 
-    public function destroy(Client $client){
+    public function destroy(Client $client):RedirectResponse{
         $client->delete();
 
         return redirect('/clients')->with('message', 'Client deleted');

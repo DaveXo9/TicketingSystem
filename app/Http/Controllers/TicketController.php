@@ -23,17 +23,17 @@ class TicketController extends Controller
     {
     }
 
-    public function index(){
+    public function index():View {
         $tickets = Ticket::latest()->filter(request(['search']))->paginate(10);
         return view('ticket.index', compact('tickets'));
 
         // $tickets = Ticket::where('user_id', auth()->id())->latest()->filter(request(['search']))->paginate(10);
     }
-    public function show(Ticket $ticket){
+    public function show(Ticket $ticket):View {
         return view('ticket.show', compact('ticket'));
     }
 
-    public function openTickets(){
+    public function openTickets():View {
         $tickets = Ticket::where('status_id', 1)->latest()->paginate(10);
         return view('ticket.index', compact('tickets'));
         // $tickets = Ticket::where('user_id', auth()->id())->where('status_id', 1)->latest()->paginate(10);
@@ -41,12 +41,12 @@ class TicketController extends Controller
     }
 
 
-    public function create(){
+    public function create():View{
         $clients = Client::all();
         return view('ticket.create', compact('clients'));
     }
 
-    public function store(ClientRequest $clientRequest, TicketRequest $ticketRequest){
+    public function store(ClientRequest $clientRequest, TicketRequest $ticketRequest):RedirectResponse{
         $clientFields = $clientRequest->validated();
 
         $client = $this->clientService->create($clientFields);
@@ -65,11 +65,11 @@ class TicketController extends Controller
 
     }
 
-    public function edit(Ticket $ticket){
+    public function edit(Ticket $ticket):View {
         return view('ticket.edit', compact('ticket'));
     }
 
-    public function update(TicketRequest $ticketRequest, UserRequest $userRequest, Ticket $ticket){
+    public function update(TicketRequest $ticketRequest, UserRequest $userRequest, Ticket $ticket):RedirectResponse {
         $formFields = $ticketRequest->safe()->except(['status']);
         $bool = 0;
 
@@ -99,7 +99,7 @@ class TicketController extends Controller
         
     }
 
-    public function destroy(Ticket $ticket){
+    public function destroy(Ticket $ticket):RedirectResponse{
         $ticket->delete();
 
         return redirect('/')->with('message', 'Ticket deleted');
