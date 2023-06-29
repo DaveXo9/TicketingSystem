@@ -31,7 +31,7 @@ class ChatController extends Controller
         return view('chat.show', compact('messages', 'recepient_id', 'users'));
     }
 
-    public function store(ChatRequest $chatRequest):RedirectResponse
+    public function store(ChatRequest $chatRequest):Message
     {
         $formField = $chatRequest->validated();
 
@@ -40,6 +40,6 @@ class ChatController extends Controller
         $message = Message::create($formField);
         event(new SentMessage($message));
 
-        return back();
+        return $message;
     }
 }

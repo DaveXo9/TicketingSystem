@@ -21,7 +21,7 @@
       },
     });
   
-      var channel = pusher.subscribe('private-chat.' + chatIds[0] + '_' + chatIds[1]); // Include the user ID as part of the channel name
+      var channel = pusher.subscribe('private-chat.' + userId);
       channel.bind('pusher:subscription_succeeded', function() {
         alert('Successfully subscribed!');
       });
@@ -31,12 +31,35 @@
       });
   
       channel.bind('message-sent', function(data) {
-        console.log(data.message.message);
-        appendMessage(data);
-        scrollToBottom();
+        console.log(data);
+        if (data.message.user_id == recipientId) {
+            appendMessageRecipient(data);
+            scrollToBottom();
+        }
       });
       
-      function appendMessage(data) {
+      function appendMessageRecipient(data) {
+        var messageDiv = document.createElement('div');
+        messageDiv.classList.add('flex', 'justify-start', 'mb-4', 'items-center');
+       
+        var userAvatar = document.createElement('div');
+        userAvatar.classList.add('bg-gray-200', 'text-black', 'rounded-full', 'h-8', 'w-8', 'flex', 'items-center', 'justify-center', 'text-xs', 'font-semibold');
+        userAvatar.textContent =  data.user_name.substr(0, 1);
+
+        var messageContent = document.createElement('div');
+        messageContent.classList.add('ml-2', 'py-3', 'px-4', 'bg-gray-200', 'rounded-br-3xl', 'rounded-tr-3xl', 'rounded-tl-xl', 'text-black');
+        messageContent.textContent = data.message.message;
+
+
+        messageDiv.appendChild(userAvatar);
+        messageDiv.appendChild(messageContent);
+
+        var chatMessagesContainer = document.querySelector('.flex.flex-col.mt-5.overflow-y-auto');
+        chatMessagesContainer.appendChild(messageDiv);
+      } 
+
+      function appendMessageSender(data) {
+        console.log(data);
         var messageDiv = document.createElement('div');
         messageDiv.classList.add('flex', 'justify-end', 'mb-4');
 
@@ -67,7 +90,9 @@
 
             // Send the AJAX request
             $.post(url, data, function(response) {
-                console.log("here");
+                console.log('here')
+                appendMessageSender({ message: { message: message } });
+                scrollToBottom();
             });
         }
 

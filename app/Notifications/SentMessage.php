@@ -35,12 +35,9 @@ class SentMessage extends Notification implements ShouldBroadcast, ShouldQueue
         //
     }
 
-    public function broadcastOn(){
-
-        $smallerId = min($this->message->recepient_id, $this->message->user_id);
-        $largerId = max($this->message->recepient_id, $this->message->user_id);
-
-        return new PrivateChannel('chat.' . $smallerId . '_' . $largerId);
+    public function broadcastOn()
+    {
+        return new PrivateChannel('chat.' . $this->message->recepient_id);
     }
 
     public function broadcastAs(){
@@ -49,6 +46,7 @@ class SentMessage extends Notification implements ShouldBroadcast, ShouldQueue
 
     public function broadcastWith() {
         return [
+            'user_name' => $this->message->user->name,
             'message' => $this->message,
         ];
     }
