@@ -8,8 +8,6 @@
       var pusherAppKey = "{{ env('PUSHER_APP_KEY') }}";
       var userId = "{{ Auth()->user()->id }}";
       var recipientId = "{{ $recepient_id }}";
-      var chatIds = [Math.min(userId, recipientId), Math.max(userId, recipientId)];
-
   
       var pusher = new Pusher(pusherAppKey, {
       cluster: 'eu',
@@ -31,7 +29,6 @@
       });
   
       channel.bind('message-sent', function(data) {
-        console.log(data);
         if (data.message.user_id == recipientId) {
             appendMessageRecipient(data);
             scrollToBottom();
@@ -59,7 +56,6 @@
       } 
 
       function appendMessageSender(data) {
-        console.log(data);
         var messageDiv = document.createElement('div');
         messageDiv.classList.add('flex', 'justify-end', 'mb-4');
 
@@ -91,6 +87,8 @@
             // Send the AJAX request
             $.post(url, data, function(response) {
                 console.log('here')
+            })
+            .done(function() {
                 appendMessageSender({ message: { message: message } });
                 scrollToBottom();
             });

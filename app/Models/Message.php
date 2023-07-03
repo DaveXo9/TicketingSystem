@@ -11,6 +11,15 @@ class Message extends Model
 
     protected $fillable = [ 'message', 'user_id', 'recepient_id'];
 
+    // Search users that you want exchange messages with
+    public function scopeFilter($query, array $filters){
+        if($filters['search'] ?? false ){
+            $query->whereHas('user', function($query){
+                $query->where('name', 'like', '%' . request('search') . '%');
+            });
+        }
+    }
+
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
