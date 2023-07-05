@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :route="'/tickets'"> 
     <div class="flex justify-center mx-auto">
         <div class="w-full lg:w-1/2 my-6 pr-0 lg:pr-2">
             <p class="text-xl pb-6 flex items-center">

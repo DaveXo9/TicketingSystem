@@ -1,4 +1,4 @@
-<x-layout> 
+<x-layout :route="'/tickets'"> 
         <!-- your content goes here -->
         @unless(count($tickets) == 0)
 

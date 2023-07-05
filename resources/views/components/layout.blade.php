@@ -1,3 +1,4 @@
+@props(['route'])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +66,7 @@
         <!-- Desktop Header -->
         <header class="flex items-center justify-between bg-white py-2 px-6">
             <div class="w-1/2"></div>
-            <form action="/tickets" class="flex justify-center w-full max-w-md mx-auto">
+            <form action="{{$route}}" class="flex justify-center w-full max-w-md mx-auto">
             
                 <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden border border-gray-300">
                 <div class="grid place-items-center h-full w-12 text-blue-600">

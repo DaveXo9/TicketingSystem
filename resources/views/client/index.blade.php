@@ -1,5 +1,5 @@
-<x-layout> 
-    <p class="text-xl pb-3 flex items-center">
+<x-layout :route="'/tickets'"> 
+  <p class="text-xl pb-3 flex items-center">
         <i class="fas fa-users mr-3"></i> Clients
     </p>
 </br>

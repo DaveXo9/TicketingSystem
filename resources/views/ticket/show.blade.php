@@ -1,4 +1,4 @@
-<x-layout> 
+<x-layout :route="'/tickets'"> 
     <div class="my-4">
       <div class="max-w-3xl min-h-80 px-6 py-8 mx-auto bg-gray-50 rounded-lg shadow-md dark:bg-gray-100" style="cursor: auto;">
         <div class="flex items-center justify-between">

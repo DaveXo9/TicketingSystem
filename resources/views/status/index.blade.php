@@ -1,4 +1,4 @@
-<x-layout> 
+<x-layout :route="'/tickets'">  
     <p class="text-xl pb-3 flex items-center">
         <i class="fas fa-users mr-3"></i> Status
     </p>
