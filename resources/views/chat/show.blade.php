@@ -117,6 +117,17 @@
         <div class="flex flex-row justify-between bg-white">
             <!-- chat list -->
             <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto" style="max-height: 640px;">
+                <form action="/chat">
+                    <div class="border-b-2 py-4 px-2">
+                        <input
+                          type="text"
+                          placeholder="Search users..."
+                          id="userSearch" 
+                          name="userSearch"
+                          class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
+                        />
+                      </div>
+                    </form>
                 <!-- user list -->
                 @foreach ($users as $user)
                     <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2" data-recipient-id="{{ $user->id }}">

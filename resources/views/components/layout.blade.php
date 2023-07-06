@@ -45,6 +45,10 @@
                 <i class="fas fa-align-left mr-3"></i>
                 Tickets
             </a>
+            <a href="/chat" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="far fa-comment mr-3"></i>
+                Chat
+            </a>
             <a href="/clients" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-users mr-3"></i>
                 Clients
@@ -66,7 +70,7 @@
         <!-- Desktop Header -->
         <header class="flex items-center justify-between bg-white py-2 px-6">
             <div class="w-1/2"></div>
-            <form action="{{$route}}" class="flex justify-center w-full max-w-md mx-auto">
+            <form action={{$route}} class="flex justify-center w-full max-w-md mx-auto">
             
                 <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden border border-gray-300">
                 <div class="grid place-items-center h-full w-12 text-blue-600">
@@ -125,6 +129,10 @@
                 <a href="/tickets" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-align-left mr-3"></i>
                     Tickets
+                </a>
+                <a href="/chat" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="far fa-comment mr-3"></i>
+                    Chat
                 </a>
                 <a href="/clients" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-users mr-3"></i>

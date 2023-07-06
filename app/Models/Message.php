@@ -12,12 +12,21 @@ class Message extends Model
     protected $fillable = [ 'message', 'user_id', 'recepient_id'];
 
     // Search users that you want exchange messages with
-    public function scopeFilter($query, array $filters){
-        if($filters['search'] ?? false ){
-            $query->whereHas('user', function($query){
-                $query->where('name', 'like', '%' . request('search') . '%');
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $query->where('created_at', '>=', function ($query) use ($filters) {
+                $query->select('created_at')
+                    ->from('messages')
+                    ->where('message', 'like', '%' . request('search') . '%')
+                    ->orderBy('created_at')
+                    ->limit(1);
             });
-        }
+        }        
+        
+        // Add any additional query conditions or logic here
+        
+        return $query;
     }
 
     public function user(){
