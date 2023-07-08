@@ -1,4 +1,5 @@
-<x-layout>
+<x-layout :route="'/tickets'"> 
+
     <div class="max-w-2xl mx-auto">
     <form method="POST" action="/status/{{$status->id}}" class="bg-white p-4 rounded-lg shadow-md">
         @method('PUT')

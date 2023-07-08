@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :route="'/tickets'"> 
   <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
 
   <script>

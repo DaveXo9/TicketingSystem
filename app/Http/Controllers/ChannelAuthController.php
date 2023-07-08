@@ -22,7 +22,7 @@ class ChannelAuthController extends Controller
         $socket_id = $request->socket_id;
         $channel_name = $request->channel_name;
     
-        $userId = str_replace('private-notifications.', '', $channel_name);
+        $userId = auth()->id();
     
         if (auth()->check() && auth()->user()->id == $userId) {
             $auth = $pusher->socket_auth($channel_name, $socket_id);

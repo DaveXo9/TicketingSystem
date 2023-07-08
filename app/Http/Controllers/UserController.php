@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 use App\Notifications\UserRegistered;
 
@@ -15,16 +17,16 @@ use App\Http\Requests\RegisterRequest;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index():View{
         $user = User::where('id', auth()->id())->first();
         return view('users.index', compact('user'));
     }
 
-    public function create(){
+    public function create():View{
         return view('users.register');
     }
 
-    public function store(RegisterRequest $registerRequest){
+    public function store(RegisterRequest $registerRequest):RedirectResponse{
         $formFields = $registerRequest->validated();
         $formFields['password'] = bcrypt($formFields['password']);
         $user = User::create($formFields);
@@ -36,7 +38,7 @@ class UserController extends Controller
         return redirect('/')->with('message', 'User created and logged in');
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request):RedirectResponse{
         auth()->logout();
 
         $request->session()->invalidate();
@@ -46,11 +48,11 @@ class UserController extends Controller
         return redirect('/')->with('message', 'User logged out');
     }
 
-    public function login(){
+    public function login():View{
         return view('users.login');
     }
 
-    public function authenticate(UserRequest $UserRequest){
+    public function authenticate(UserRequest $UserRequest):RedirectResponse{
         $formFields = $UserRequest->validated();
 
         if(auth()->attempt($formFields)){
@@ -61,11 +63,11 @@ class UserController extends Controller
         ])->onlyInput('email');
     }
 
-    public function edit(User $user){
+    public function edit(User $user):View{
         return view('users.edit', compact('user'));
     }
 
-    public function update(RegisterRequest $reigsterRequest, User $user){
+    public function update(RegisterRequest $reigsterRequest, User $user):RedirectResponse{
         $formFields = $reigsterRequest->validated();
 
         $formFields['password'] = bcrypt($formFields['password']);
@@ -76,7 +78,7 @@ class UserController extends Controller
         return redirect('/profile')->with('message', 'User updated');
     }
 
-    public function destroy(User $user){
+    public function destroy(User $user):RedirectResponse{
         $user->delete();
 
         return redirect('/')->with('message', 'User deleted');

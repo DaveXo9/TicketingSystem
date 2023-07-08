@@ -1,16 +1,17 @@
 <?php
 
+use Pusher\Pusher;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ChannelAuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\NotificationController;
 
-use Illuminate\Http\Request;
-use Pusher\Pusher;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ChannelAuthController;
+use App\Http\Controllers\NotificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +41,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/users/authenticate', [UserController::class, 'authenticate']);
     Route::post('/users', [UserController::class, 'store']);
 });
+
+Route::get('/chat', [ChatController::class, 'index'])->middleware('auth');
+Route::get('/chat/{recepient}', [ChatController::class, 'show'])->middleware('auth');
+Route::post('/chat', [ChatController::class, 'store'])->middleware('auth');
 
 
 

@@ -8,6 +8,7 @@ use App\Models\Ticket;
 use App\Models\Status;
 use App\Models\Client;
 use App\Models\Comment;
+use App\Models\Message;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
+        User::factory(20)->create();
 
         Client::factory(10)->create();
 
@@ -35,8 +36,10 @@ class DatabaseSeeder extends Seeder
             'status' => 'Closed'
         ]);
 
-       Ticket::factory(10)->create();
-       Comment::factory(20)->create();
+       Ticket::factory(14)->create();
+       Comment::factory(30)->create();
+       Message::factory(40)->create();
+
 
 
 

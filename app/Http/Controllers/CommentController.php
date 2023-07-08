@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
-
 use App\Http\Requests\CommentRequest;
+
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class CommentController extends Controller
 {
     // Get comments for a single ticket
-    public function index($ticket_id){
+    public function index($ticket_id):Collection{
         $comments = Comment::where('ticket_id', $ticket_id)->latest();
         return $comments;
     }
 
-    public function store(CommentRequest $commentRequest){
+    public function store(CommentRequest $commentRequest):RedirectResponse{
         $formFields = $commentRequest->validated();
 
         $formFields['user_id'] = auth()->id();
@@ -26,11 +29,11 @@ class CommentController extends Controller
         return back()->with('message', 'Comment created');
     }
 
-    public function edit(Comment $comment){
+    public function edit(Comment $comment):View{
         return view('comment.edit', compact('comment'));
     }
 
-    public function update(CommentRequest $commentRequest, Comment $comment){
+    public function update(CommentRequest $commentRequest, Comment $comment):RedirectResponse{
         $formField = $commentRequest->validated(); 
 
         if($comment->user_id != auth()->id()){
@@ -43,7 +46,7 @@ class CommentController extends Controller
 
         return redirect('/tickets/' . $comment->ticket_id)->with('message', 'Comment updated');    }
 
-    public function destroy(Comment $comment){
+    public function destroy(Comment $comment):RedirectResponse{
         if($comment->user_id != auth()->id()){
             abort(403, 'Unauthorized Action');
         }else{

@@ -42,6 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function scopeFilter($query, array $filters){
+        if($filters['userSearch'] ?? false ){
+                $query->where('name', 'like', '%' . request('userSearch') . '%');
+            }
+        }
+
 
     public function comments() {
         return $this->hasMany(Comment::class);
@@ -54,5 +60,9 @@ class User extends Authenticatable
     public function notifications()
     {
     return $this->hasMany(Notification::class);
+    }
+
+    public function messages(){
+        return $this->hasMany(Message::class);
     }
 }

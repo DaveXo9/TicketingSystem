@@ -1,5 +1,5 @@
-<x-layout>
-    <x-card class="p-10 max-w-lg mx-auto mt-6">
+<x-layout :route="'/tickets'"> 
+  <x-card class="p-10 max-w-lg mx-auto mt-6">
       <header class="text-center">
         <h2 class="text-2xl font-bold uppercase mb-1">Update User</h2>
       </header>

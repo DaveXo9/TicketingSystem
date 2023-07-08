@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :route="'/tickets'"> 
 
     <div class="flex h-screen items-center justify-center">
         <div class="w-full rounded-xl p-12 shadow-2xl shadow-blue-200 md:w-8/12 lg:w-6/12 bg-white" style="margin-top: -10%;">
