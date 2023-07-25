@@ -8,6 +8,8 @@ Controllers: CRUD operations were supported with dedicated controllers for each 
 Routes: Appropriate routes were set up for the controllers.
 Factory and Seeder: Seed data was generated for the database using factories and seeders.
 Client Interface: The necessary interfaces were implemented on the client-side.
+
+
 Additional Features:
 Upon completing the basic project requirements, I was assigned new tasks to further develop the application.
 
@@ -20,7 +22,20 @@ Implemented a notification system within the application using Laravel broadcast
 Agent Communication via Chat (Pusher):
 
 Developed a communication feature that facilitates chat between agents using the Pusher service. This ensures seamless and efficient collaboration among team members.
-Message Filtering:
 
+Message Filtering:
 Implemented the ability to filter messages based on their content, making it easier for agents to find and focus on relevant information during their interactions.
-This project showcases various aspects of Laravel development, including database management, API creation, real-time communication, and more. Feel free to explore the code and documentation to understand the implementation details and structure of the ticketing system. If you encounter any issues or have suggestions for improvement, please don't hesitate to open an issue or reach out. Happy coding!
+
+
+Below are some screenshots from application: 
+
+![LoginForm](https://github.com/DaveXo9/TicketingSystem/assets/85836822/ec98de1e-884a-45d7-8706-cb4ebed5bf3e)
+
+![IndexTicket](https://github.com/DaveXo9/TicketingSystem/assets/85836822/d57ac084-4e0f-4afa-a194-5cc51d174e62)
+
+![card](https://github.com/DaveXo9/TicketingSystem/assets/85836822/0a1701ad-8c09-4e2b-9a0a-f73332267555)
+
+
+![CreateForm](https://github.com/DaveXo9/TicketingSystem/assets/85836822/57c9296a-76b5-4a5e-b057-3856b2d2d85d)
+
+This project showcases various aspects of Laravel development, including database management, API creation, real-time communication, and more.
