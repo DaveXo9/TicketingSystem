@@ -11,6 +11,7 @@ Client Interface: The necessary interfaces were implemented on the client-side.
 
 
 Additional Features:
+
 Upon completing the basic project requirements, I was assigned new tasks to further develop the application.
 
 Search Bar Implementation:
@@ -24,6 +25,7 @@ Agent Communication via Chat (Pusher):
 Developed a communication feature that facilitates chat between agents using the Pusher service. This ensures seamless and efficient collaboration among team members.
 
 Message Filtering:
+
 Implemented the ability to filter messages based on their content, making it easier for agents to find and focus on relevant information during their interactions.
 
 
@@ -35,7 +37,10 @@ Below are some screenshots from application:
 
 ![card](https://github.com/DaveXo9/TicketingSystem/assets/85836822/0a1701ad-8c09-4e2b-9a0a-f73332267555)
 
-
 ![CreateForm](https://github.com/DaveXo9/TicketingSystem/assets/85836822/57c9296a-76b5-4a5e-b057-3856b2d2d85d)
+
+![Notifications](https://github.com/DaveXo9/TicketingSystem/assets/85836822/6c7b75b4-7e09-483f-a505-524909b61b9a)
+
+![chat](https://github.com/DaveXo9/TicketingSystem/assets/85836822/dea985b7-90a0-4b05-8fbd-82bd33db30c2)
 
 This project showcases various aspects of Laravel development, including database management, API creation, real-time communication, and more.
