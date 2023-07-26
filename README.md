@@ -1,4 +1,4 @@
-Ticketing System in Laravel
+#Ticketing System in Laravel
 
 This project was developed during my internship at Asseco SEE  and aims to create a ticketing system using Laravel framework. In this context, a ticket represents a task or an issue that needs to be addressed. For instance, when a user contacts the customer service to report a problem, an agent on the other end opens a ticket with a description of the corresponding issue.
 
